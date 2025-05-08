@@ -1,3 +1,7 @@
+package model;
+
+import manager.TaskManager;
+
 public class Task {
 
     private int id;
@@ -5,7 +9,7 @@ public class Task {
     private String description;
     private Status status;
 
-    public Task(String name, String description, int id, Status status) {
+    public Task(String name, String description) {
         this.description = description;
         this.id = TaskManager.getNewId();
         this.name = name;
