@@ -6,7 +6,7 @@ import java.util.List;
 public class Epic extends Task {
     public ArrayList<Integer> idSubs = new ArrayList<>();
 
-    public Epic(String name, String description, int id, Status status) {
+    public Epic(String name, String description) {
         super(name, description);
     }
 
@@ -14,6 +14,12 @@ public class Epic extends Task {
     public void addSubTaskId(int id) {
         idSubs.add(id);
     }
-    // Метод для получения списка подзадач
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
 
 }

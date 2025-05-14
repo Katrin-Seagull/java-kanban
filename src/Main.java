@@ -4,15 +4,46 @@ import model.SubTask;
 import model.Task;
 import model.Status;
 
-import java.util.Scanner;
-
 public class Main {
-    static TaskManager tm;
-    static Scanner scanner;
 
     public static void main(String[] args) {
+        TaskManager tm = new TaskManager();
+
+        Task task1 = new Task("Задача 1", "Полить цветы");
+        Task task2 = new Task("Задача 2", "Погулять с собакой");
+        tm.addTask(task1);
+        tm.addTask(task2);
+
+        Epic epic1 = new Epic("Эпик 1", "Посадить дерево");
+        tm.addEpic(epic1);
+        //int epicId = epic1.getId();
+        //System.out.println(epicId);
+        SubTask subTask1 = new SubTask("Подзадача 1 для эпика 1", "Раскопать ямку", 2);
+        tm.addSubTask(subTask1);
+        SubTask subTask2 = new SubTask("Подзадача 2 для эпика 1","Разместить саженец",2);
+        tm.addSubTask(subTask2);
 
 
+        Epic epic2 = new Epic("Эпик 2","Построить дом");
+        tm.addEpic(epic2);
+        SubTask subTask3 = new SubTask("Подзадача для эпика 2","Поставить купленный дом на участок", 6);
+        tm.addSubTask(subTask3);
+
+
+        System.out.println("Задачи: " + tm.getTasks());
+        System.out.println("Подзадачи: " + tm.getSubTasks());
+        System.out.println("Эпики: " + tm.getEpics());
+
+        task1.setStatus(Status.DONE);
+        subTask1.setStatus(Status.IN_PROGRESS);
+        tm.updateEpic(epic1);
+
+        System.out.println("Обновлённые задачи: " + tm.getTasks());
+        System.out.println("Обновлённые подзадачи: " + tm.getSubTasks());
+        System.out.println("Статус эпика 1: " + epic1.getStatus());
+
+        tm.removeTask(task1.getId());
+        tm.removeEpic(epic1.getId());
     }
 }
 

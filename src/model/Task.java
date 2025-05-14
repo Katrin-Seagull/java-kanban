@@ -13,7 +13,6 @@ public class Task {
         this.description = description;
         this.name = name;
         this.status = Status.NEW;
-        id = TaskManager.getNewId();
     }
     public int getId() {
         return id;
