@@ -4,7 +4,7 @@ import manager.TaskManager;
 
 public class Task {
 
-    public int id;
+    int id;
     private String name;
     private String description;
     private Status status;

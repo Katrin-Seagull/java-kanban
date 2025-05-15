@@ -41,7 +41,7 @@ public class TaskManager {
     public void deleteSubTasks() {
         subTaskMap.clear();
         for (Epic epic : epicMap.values()) {
-            epic.idSubs.clear(); // Очищаем список подзадach у эпика
+            epic.getIdSubs().clear(); // Очищаем список подзадach у эпика
             epic.setStatus(Status.NEW); // Устанавливаем статус NEW
         }
     }
@@ -82,7 +82,7 @@ public class TaskManager {
     public void removeSubTask(Integer ID) {
         SubTask subTask = subTaskMap.remove(ID);
         Epic epic = getEpicForSubTask(subTask);
-        epic.idSubs.remove(subTask.getId()); // Удаляем идентификатор подзадачи из списка эпика
+        epic.getIdSubs().remove((Integer) subTask.getId()); // Удаляем идентификатор подзадачи из списка эпика
         Status newStatus = calculateEpicStatus(epic); // Рассчитываем новый статус эпика
         epic.setStatus(newStatus); // Устанавливаем новый статус
         updateEpic(epic);
@@ -152,7 +152,7 @@ public class TaskManager {
 
     public List<SubTask> getSubTasksForEpic(Epic epic) {
         List<SubTask> subTasks = new ArrayList<>();
-        for (Integer id : epic.idSubs) {
+        for (Integer id : epic.getIdSubs()) {
             SubTask subTask = subTaskMap.get(id);
             if (subTask != null) {
                 subTasks.add(subTask);
@@ -161,12 +161,7 @@ public class TaskManager {
         return subTasks;
     }
     private Epic getEpicForSubTask(SubTask subTask) {
-        for (Epic epic : epicMap.values()) {
-            if (epic.idSubs.contains(subTask.getId())) {
-                return epic;
-            }
-        }
-        return null;
+        return epicMap.get(subTask.getEpicId());
     }
 }
 

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Epic extends Task {
-    public ArrayList<Integer> idSubs = new ArrayList<>();
+    private ArrayList<Integer> idSubs = new ArrayList<>();
 
     public Epic(String name, String description) {
         super(name, description);
@@ -22,4 +22,7 @@ public class Epic extends Task {
         return id;
     }
 
+    public ArrayList<Integer> getIdSubs() {
+        return idSubs;
+    }
 }
