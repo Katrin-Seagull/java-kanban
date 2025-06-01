@@ -1,4 +1,4 @@
-import manager.TaskManager;
+import manager.InMemoryTaskManager;
 import model.Epic;
 import model.SubTask;
 import model.Task;
@@ -7,7 +7,7 @@ import model.Status;
 public class Main {
 
     public static void main(String[] args) {
-        TaskManager tm = new TaskManager();
+        InMemoryTaskManager tm = new InMemoryTaskManager();
 
         Task task1 = new Task("Задача 1", "Полить цветы");
         Task task2 = new Task("Задача 2", "Погулять с собакой");
