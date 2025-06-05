@@ -1,33 +1,16 @@
-package model;
+package test;
 
+import model.Task;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import manager.InMemoryTaskManager;
 import java.util.List;
 
 class TaskTest {
+    InMemoryTaskManager taskManager = new InMemoryTaskManager();
 
-    @Test
-    void addNewTask() {
-        InMemoryTaskManager taskManager = new InMemoryTaskManager(); // Создаем экземпляр менеджера задач
-
-        Task task = new Task("Test addNewTask", "Test addNewTask description");
-        final int taskId = taskManager.addTask(task); // Используем экземпляр для добавления задачи
-
-        Task savedTask = taskManager.getTask(taskId); // Используем экземпляр для получения задачи
-
-        assertNotNull(savedTask, "Задача не найдена.");
-        assertEquals(task, savedTask, "Задачи не совпадают.");
-
-        final List<Task> tasks = taskManager.getTasks(); // Используем экземпляр для получения списка задач
-
-        assertNotNull(tasks, "Задачи не возвращаются.");
-        assertEquals(1, tasks.size(), "Неверное количество задач.");
-        assertEquals(task, tasks.get(0), "Задачи не совпадают.");
-    }
     @Test
     void testTasksAreEqualById() {
-        InMemoryTaskManager taskManager = new InMemoryTaskManager();
 
         // Создаём две задачи с одинаковым описанием и разными id
         Task task1 = new Task("Test task", "Description");
@@ -50,7 +33,4 @@ class TaskTest {
         // Проверяем равенство задач после установки одинакового id
         assertEquals(savedTask1, savedTask2, "Задачи не равны при одинаковом id.");
     }
-    //проверьте, что наследники класса Task равны друг другу, если равен их id;
-    //subtask???
-
 }

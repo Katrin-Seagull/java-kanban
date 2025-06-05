@@ -4,6 +4,8 @@ import model.SubTask;
 import model.Task;
 import model.Status;
 
+import static manager.TaskManager.historyManager;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -44,6 +46,26 @@ public class Main {
 
         tm.removeTask(task1.getId());
         tm.removeEpic(epic1.getId());
+    }
+    public static void printAllTasks(InMemoryTaskManager manager) {
+        System.out.println("Задачи:");
+        for (Task task : manager.getTasks()) {
+            System.out.println(task); }
+        System.out.println("Эпики:");
+        for (Epic epic : manager.getEpics()) {
+            System.out.println(epic);
+            for (SubTask subTask : manager.getSubTasksForEpic(epic)) {
+                System.out.println("--> " + subTask);
+            }
+        }
+        System.out.println("Подзадачи:");
+        for (SubTask subtask : manager.getSubTasks()) {
+            System.out.println(subtask);
+        }
+        System.out.println("История:");
+        for (Task task : historyManager.getHistory()) {
+            System.out.println(task);
+        }
     }
 }
 

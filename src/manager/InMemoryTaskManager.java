@@ -14,7 +14,6 @@ public class InMemoryTaskManager implements TaskManager {
     protected HashMap<Integer, SubTask> subTaskMap = new HashMap<>();
     protected HashMap<Integer, Epic> epicMap = new HashMap<>();
     private int id = 0;
-    private List<Task> history = new ArrayList<>();
     private InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
 
     public int addTask(Task task) {
@@ -172,16 +171,12 @@ public class InMemoryTaskManager implements TaskManager {
     private Epic getEpicForSubTask(SubTask subTask) {
         return epicMap.get(subTask.getEpicId());
     }
-    private void addHistory(Task task) {
-        if (history.size() == 10) {
-            history.remove(0); // Удаляем самый старый элемент
-        }
-        history.add(task); // Добавляем задачу в конец списка
-    }
-    public List<Task> getHistory() {
-        return history;
-    }
 
+
+    public interface HistoryManager {
+        void addHistory(Task task);
+        List<Task> getHistory();
+    }
 }
 
 
