@@ -4,10 +4,9 @@ import model.Task;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InMemoryHistoryManager implements HistoryManager{
+public class InMemoryHistoryManager implements HistoryManager {
     private static final int MAX_HISTORY_SIZE = 10;
     private List<Task> history = new ArrayList<>();
-    private HistoryManager historyManager;
 
     @Override
     public void addHistory(Task task) {

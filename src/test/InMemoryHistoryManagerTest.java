@@ -30,15 +30,15 @@ class InMemoryHistoryManagerTest {
         task1.setStatus(Status.NEW);
 
         // Добавляем задачу в историю
-        historyManager.addHistory(task1);
+        historyManager.addHistory(task1.copy());
 
         // Убедимся, что задача сохранена в истории
         List<Task> history = historyManager.getHistory();
         assertNotNull(history);
         assertEquals(1, history.size());
-        assertEquals("Задача 1", history.get(0).getName());
-        assertEquals("Описание задачи 1", history.get(0).getDescription());
-        assertEquals(Status.NEW, history.get(0).getStatus());
+        assertEquals("Задача 1", history.getFirst().getName());
+        assertEquals("Описание задачи 1", history.getFirst().getDescription());
+        assertEquals(Status.NEW, history.getFirst().getStatus());
 
         // Изменяем задачу и добавляем её снова
         task1.setName("Обновленная задача 1");

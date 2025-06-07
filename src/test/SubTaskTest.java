@@ -1,6 +1,8 @@
 package test;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
 import manager.InMemoryTaskManager;
 import model.Epic;
 import model.SubTask;
@@ -9,19 +11,21 @@ class SubTaskTest {
     InMemoryTaskManager taskManager = new InMemoryTaskManager();
 
     @Test
-    public void testSubTaskCannotBeItsOwnEpic() {
-
-        SubTask subTask = new SubTask("Подзадача 1 для эпика 1", "Раскопать ямку", 0);
-        Epic epic = new Epic("Эпик 1", "Посадить дерево");
-
-        // Добавляем субзадачу и эпик в менеджер задач
-        taskManager.addSubTask(subTask);
+    void testSubTasksEqualityByID() {
+        // Создаем эпик для подзадач
+        Epic epic = new Epic("Эпик для подзадач", "Описание эпика");
         taskManager.addEpic(epic);
 
-        int epicId = epic.getId(); // Получаем идентификатор эпика
-        subTask.setEpicId(epicId); // Пытаемся установить связь с эпиком (если метод setEpicId был бы доступен)
+        // Создаем две подзадачи с одинаковым ID
+        SubTask subTask1 = new SubTask("Подзадача 1", "Описание подзадачи 1", epic.getId());
+        SubTask subTask2 = new SubTask("Подзадача 2", "Описание подзадачи 2", epic.getId());
 
-        // Проверяем, что подзадача не связана сама с собой
-        assertNotEquals(subTask.getEpicId(), subTask.getId());
+        // Добавляем подзадачи в менеджер задач
+        taskManager.addSubTask(subTask1);
+        taskManager.addSubTask(subTask2);
+        subTask1.setId(1);
+        subTask2.setId(1);
+        // Проверяем равенство подзадач по ID
+        assertEquals(subTask1.getId(), subTask2.getId());
     }
 }

@@ -1,15 +1,15 @@
+import manager.InMemoryHistoryManager;
 import manager.InMemoryTaskManager;
 import model.Epic;
 import model.SubTask;
 import model.Task;
 import model.Status;
 
-import static manager.TaskManager.historyManager;
-
 public class Main {
 
     public static void main(String[] args) {
         InMemoryTaskManager tm = new InMemoryTaskManager();
+        InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
 
         Task task1 = new Task("Задача 1", "Полить цветы");
         Task task2 = new Task("Задача 2", "Погулять с собакой");
@@ -47,7 +47,7 @@ public class Main {
         tm.removeTask(task1.getId());
         tm.removeEpic(epic1.getId());
     }
-    public static void printAllTasks(InMemoryTaskManager manager) {
+    public static void printAllTasks(InMemoryTaskManager manager, InMemoryHistoryManager historyManager) {
         System.out.println("Задачи:");
         for (Task task : manager.getTasks()) {
             System.out.println(task); }

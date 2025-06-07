@@ -25,4 +25,11 @@ public class Epic extends Task {
     public ArrayList<Integer> getIdSubs() {
         return idSubs;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Epic)) return false;
+        Epic epic = (Epic) o;
+        return getId() == epic.getId();
+    }
 }

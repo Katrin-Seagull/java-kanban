@@ -1,28 +1,25 @@
 package test;
+
 import manager.InMemoryTaskManager;
 import model.Epic;
 import model.SubTask;
-
-import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class EpicTest {
     InMemoryTaskManager taskManager = new InMemoryTaskManager();
+
     @Test
-    void testEpicCannotBeSubtaskOfItself() {
-         // Создаем экземпляр менеджера задач
-        Epic epic = new Epic("Epic task", "Epic description");
-        SubTask subTask = new SubTask("Subtask", "Subtask description", epic.getId());
+    void testEpicEqualityById() {
+        // Создаем два эпика с одинаковым ID, но разными названиями и описаниями
+        Epic epic1 = new Epic("Название эпика 1", "Описание эпика 1");
+        Epic epic2 = new Epic("Другое название эпика", "Другое описание эпика");
 
-        try {
-            taskManager.addSubTask(subTask); // Добавляем корректную подзадачу
-            epic.addSubTaskId(subTask.getId()); // Добавляем идентификатор подзадачи в эпик
-
-            // Пытаемся добавить идентификатор эпика в его собственный список подзадач, что должно вызвать ошибку
-            epic.addSubTaskId(epic.getId());
-            fail("Эпик был добавлен в качестве подзадачи самому себе.");
-        } catch (IllegalArgumentException e) {
-            // Ожидаем исключение, если попытка добавления Epica в качестве подзадачи запрещена
-        }
+        epic1.setId(1);
+        epic2.setId(1);
+        // Проверяем, что эпики равны по ID
+        assertEquals(epic1, epic2);
     }
+
 }

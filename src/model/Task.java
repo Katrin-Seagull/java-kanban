@@ -14,6 +14,9 @@ public class Task {
         this.name = name;
         this.status = Status.NEW;
     }
+    public Task copy() {
+        return new Task(this.name, this.description);
+    }
     public int getId() {
         return id;
     }

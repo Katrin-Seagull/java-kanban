@@ -4,7 +4,7 @@ import model.Epic;
 import model.SubTask;
 import model.Task;
 import model.Status;
-
+import manager.Managers;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class InMemoryTaskManager implements TaskManager {
     protected HashMap<Integer, SubTask> subTaskMap = new HashMap<>();
     protected HashMap<Integer, Epic> epicMap = new HashMap<>();
     private int id = 0;
-    private InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
+    private HistoryManager historyManager = Managers.getDefaultHistory();
 
     public int addTask(Task task) {
         int id = getNewId();
@@ -93,7 +93,6 @@ public class InMemoryTaskManager implements TaskManager {
         epic.getIdSubs().remove((Integer) subTask.getId()); // Удаляем идентификатор подзадачи из списка эпика
         Status newStatus = calculateEpicStatus(epic); // Рассчитываем новый статус эпика
         epic.setStatus(newStatus); // Устанавливаем новый статус
-        updateEpic(epic);
     }
 
     public void removeEpic(Integer ID) {
@@ -170,12 +169,6 @@ public class InMemoryTaskManager implements TaskManager {
     }
     private Epic getEpicForSubTask(SubTask subTask) {
         return epicMap.get(subTask.getEpicId());
-    }
-
-
-    public interface HistoryManager {
-        void addHistory(Task task);
-        List<Task> getHistory();
     }
 }
 
