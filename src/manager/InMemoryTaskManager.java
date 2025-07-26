@@ -73,6 +73,10 @@ public class InMemoryTaskManager implements TaskManager {
 
     public SubTask getSubTask(Integer ID) {
         SubTask subTask = subTaskMap.get(ID);
+        if (subTask == null) {
+            // Обработайте случай, когда подзадача не найдена
+            return null;
+        }
         historyManager.addHistory(subTask);
         return subTask;
     }
@@ -115,6 +119,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void updateSubTask(SubTask newSubTask) {
         Integer id = newSubTask.getId();
         subTaskMap.put(id, newSubTask);
+
         Epic epic = getEpicForSubTask(newSubTask);
         Status newStatus = calculateEpicStatus(epic);
         epic.setStatus(newStatus);
@@ -166,7 +171,6 @@ public class InMemoryTaskManager implements TaskManager {
         }
         return subTasks;
     }
-
     private Epic getEpicForSubTask(SubTask subTask) {
         return epicMap.get(subTask.getEpicId());
     }
