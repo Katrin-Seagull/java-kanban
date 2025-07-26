@@ -5,6 +5,7 @@ import model.SubTask;
 import model.Task;
 import model.Status;
 import manager.Managers;
+
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -147,7 +148,7 @@ public class InMemoryTaskManager implements TaskManager {
                 newCount++;
             } else if (subTask.getStatus() == Status.DONE) {
                 doneCount++;
-            } else if (subTask.getStatus() == Status.IN_PROGRESS){
+            } else if (subTask.getStatus() == Status.IN_PROGRESS) {
                 return Status.IN_PROGRESS;
             }
         }
@@ -171,6 +172,7 @@ public class InMemoryTaskManager implements TaskManager {
         }
         return subTasks;
     }
+
     private Epic getEpicForSubTask(SubTask subTask) {
         return epicMap.get(subTask.getEpicId());
     }

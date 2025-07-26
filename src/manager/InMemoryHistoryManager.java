@@ -77,6 +77,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
         return history;
     }
+
     private void linkLast(Task task) {
         Node node = new Node(task.getId(), task);
         if (tail != null) {
@@ -87,6 +88,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
         tail = node;
     }
+
     public List<Task> getTasks() {
         List<Task> tasks = new ArrayList<>();
         Node current = head;

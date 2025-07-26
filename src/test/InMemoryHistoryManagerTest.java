@@ -21,6 +21,7 @@ class InMemoryHistoryManagerTest {
         assertNotNull(history, "После добавления задачи, история не должна быть пустой.");
         assertEquals(1, history.size(), "После добавления задачи, история не должна быть пустой.");
     }
+
     @Test
     void testHistoryPreservesPreviousTaskVersions() {
         InMemoryHistoryManager historyManager = new InMemoryHistoryManager();

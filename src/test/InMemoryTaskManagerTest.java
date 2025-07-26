@@ -32,6 +32,7 @@ class InMemoryTaskManagerTest {
         assertEquals(1, tasks.size(), "Неверное количество задач.");
         assertEquals(task, tasks.getFirst(), "Задачи не совпадают.");
     }
+
     @Test
     void testEqualsById() { //для каждой задачи и подзадачи генерируется уникальный ID, поэтому их ID не будут совпадать.
         InMemoryTaskManager taskManager = new InMemoryTaskManager();
@@ -50,6 +51,7 @@ class InMemoryTaskManagerTest {
         // Убедимся, что задача и подзадача равны по ID
         assertNotEquals(taskId, subTaskId);
     }
+
     @Test
     void testAddingAndFindingTasks() {
         // Создаем задачи разных типов
@@ -65,6 +67,7 @@ class InMemoryTaskManagerTest {
         assertNotNull(taskManager.getSubTask(subTask.getId()), "Подзадача должна быть найдена по ID.");
         assertNotNull(taskManager.getEpic(epic.getId()), "Эпик должен быть найден по ID.");
     }
+
     @Test
     void testIdConflict() {
         // Создаем задачи без явно заданных ID
@@ -82,6 +85,7 @@ class InMemoryTaskManagerTest {
         assertNotNull(taskManager.getSubTask(subTask.getId()), "Подзадача с автоматически сгенерированным ID должна быть найдена.");
         assertNotNull(taskManager.getEpic(epic.getId()), "Эпик с автоматически сгенерированным ID должен быть найден.");
     }
+
     @Test
     void testTaskIntegrityOnAdd() {
         InMemoryTaskManager taskManager = new InMemoryTaskManager();
