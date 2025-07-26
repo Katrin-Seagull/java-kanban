@@ -4,7 +4,6 @@ import model.Task;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import manager.InMemoryTaskManager;
-import java.util.List;
 
 class TaskTest {
     InMemoryTaskManager taskManager = new InMemoryTaskManager();
