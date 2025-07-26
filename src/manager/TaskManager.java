@@ -25,17 +25,17 @@ public interface TaskManager {
 
     List<Epic> getEpics();
 
-    Task getTask(Integer ID);
+    Task getTask(Integer id);
 
-    SubTask getSubTask(Integer ID);
+    SubTask getSubTask(Integer id);
 
-    Epic getEpic(Integer ID);
+    Epic getEpic(Integer id);
 
-    void removeTask(Integer ID);
+    void removeTask(Integer id);
 
-    void removeSubTask(Integer ID);
+    void removeSubTask(Integer id);
 
-    void removeEpic(Integer ID);
+    void removeEpic(Integer id);
 
     void updateTask(Task newTask);
 
