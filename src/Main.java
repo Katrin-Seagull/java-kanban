@@ -18,19 +18,16 @@ public class Main {
 
         Epic epic1 = new Epic("Эпик 1", "Посадить дерево");
         tm.addEpic(epic1);
-        //int epicId = epic1.getId();
-        //System.out.println(epicId);
+
         SubTask subTask1 = new SubTask("Подзадача 1 для эпика 1", "Раскопать ямку", 2);
         tm.addSubTask(subTask1);
         SubTask subTask2 = new SubTask("Подзадача 2 для эпика 1","Разместить саженец",2);
         tm.addSubTask(subTask2);
 
-
         Epic epic2 = new Epic("Эпик 2","Построить дом");
         tm.addEpic(epic2);
         SubTask subTask3 = new SubTask("Подзадача для эпика 2","Поставить купленный дом на участок", 6);
         tm.addSubTask(subTask3);
-
 
         System.out.println("Задачи: " + tm.getTasks());
         System.out.println("Подзадачи: " + tm.getSubTasks());
@@ -47,7 +44,9 @@ public class Main {
         tm.removeTask(task1.getId());
         tm.removeEpic(epic1.getId());
     }
+
     public static void printAllTasks(InMemoryTaskManager manager, InMemoryHistoryManager historyManager) {
+
         System.out.println("Задачи:");
         for (Task task : manager.getTasks()) {
             System.out.println(task); }
@@ -68,5 +67,3 @@ public class Main {
         }
     }
 }
-
-

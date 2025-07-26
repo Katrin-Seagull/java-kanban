@@ -1,7 +1,5 @@
 package model;
 
-import manager.TaskManager;
-
 public class Task {
 
     int id;

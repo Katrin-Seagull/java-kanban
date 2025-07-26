@@ -1,7 +1,6 @@
 package model;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class Epic extends Task {
     private ArrayList<Integer> idSubs = new ArrayList<>();
@@ -14,6 +13,7 @@ public class Epic extends Task {
     public void addSubTaskId(int id) {
         idSubs.add(id);
     }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -25,6 +25,7 @@ public class Epic extends Task {
     public ArrayList<Integer> getIdSubs() {
         return idSubs;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

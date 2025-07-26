@@ -30,10 +30,13 @@ class InMemoryTaskManagerTest {
 
         assertNotNull(tasks, "Задачи не возвращаются.");
         assertEquals(1, tasks.size(), "Неверное количество задач.");
+        assertEquals(task, tasks.get(0), "Задачи не совпадают.");
         assertEquals(task, tasks.getFirst(), "Задачи не совпадают.");
     }
+
     @Test
-    void testEqualsById() { //для каждой задачи и подзадачи генерируется уникальный ID, поэтому их ID не будут совпадать.
+    void testEqualsById() {
+        //для каждой задачи и подзадачи генерируется уникальный ID, поэтому их ID не будут совпадать.
         InMemoryTaskManager taskManager = new InMemoryTaskManager();
 
         // Создаем задачу и добавляем ее в менеджер
@@ -42,11 +45,15 @@ class InMemoryTaskManagerTest {
 
         // Создаем подзадачу с таким же ID
         SubTask subTask = new SubTask("Подзадача 1", "Описание подзадачи 1", taskId);
+        subTask.setId(taskId);
         taskManager.addSubTask(subTask);
 
         // Убедимся, что задача и подзадача равны по ID
+        assertEquals(taskManager.getTask(taskId), taskManager.getSubTask(taskId));
         assertEquals(taskManager.getTask(taskId).getId(), taskManager.getSubTask(taskId).getId());
     }
+
+
     @Test
     void testAddingAndFindingTasks() {
         // Создаем задачи разных типов
@@ -62,6 +69,7 @@ class InMemoryTaskManagerTest {
         assertNotNull(taskManager.getSubTask(subTask.getId()), "Подзадача должна быть найдена по ID.");
         assertNotNull(taskManager.getEpic(epic.getId()), "Эпик должен быть найден по ID.");
     }
+
     @Test
     void testIdConflict() {
         // Создаем задачи без явно заданных ID
@@ -69,16 +77,45 @@ class InMemoryTaskManagerTest {
         SubTask subTask = new SubTask("Подзадача с автоматически сгенерированным ID", "Описание подзадачи", 0);
         Epic epic = new Epic("Эпик с автоматически сгенерированным ID", "Описание эпика");
 
+        // Создаем задачи с явно заданным ID
+        Task taskWithId = new Task("Задача с ID", "Описание задачи");
+        taskWithId.setId(100);
+        SubTask subTaskWithId = new SubTask("Подзадача с ID", "Описание подзадачи", 0);
+        subTaskWithId.setId(200);
+        Epic epicWithId = new Epic("Эпик с ID", "Описание эпика");
+        epicWithId.setId(300);
+
+        // Добавляем задачи с явно заданными ID
+        taskManager.addTask(taskWithId);
+        taskManager.addSubTask(subTaskWithId);
+        taskManager.addEpic(epicWithId);
+
+        // Создаем и добавляем задачи с автоматически сгенерированными ID
+        Task autoTask = new Task("Авто задача", "Описание авто задачи");
+        int autoTaskId = taskManager.addTask(autoTask);
+        SubTask autoSubTask = new SubTask("Авто подзадача", "Описание авто подзадачи", 0);
+        taskManager.addSubTask(autoSubTask);
+        Epic autoEpic = new Epic("Авто эпик", "Описание авто эпика");
+        taskManager.addEpic(autoEpic);
         // Добавляем задачи и получаем сгенерированные ID
         int taskId = taskManager.addTask(task);
         taskManager.addSubTask(subTask);
         taskManager.addEpic(epic);
 
         // Проверяем, что задачи доступны по их ID
+        assertNotNull(taskManager.getTask(100), "Задача с явно заданным ID должна быть найдена.");
+        assertNotNull(taskManager.getSubTask(200), "Подзадача с явно заданным ID должна быть найдена.");
+        assertNotNull(taskManager.getEpic(300), "Эпик с явно заданным ID должен быть найден.");
+
+        // Проверяем, что автоматически сгенерированные ID не совпадают с явно заданными
+        assertNotEquals(100, autoTaskId);
+        assertNotEquals(200, autoTaskId);
+        assertNotEquals(300, autoTaskId);
         assertNotNull(taskManager.getTask(taskId), "Задача с автоматически сгенерированным ID должна быть найдена.");
         assertNotNull(taskManager.getSubTask(subTask.getId()), "Подзадача с автоматически сгенерированным ID должна быть найдена.");
         assertNotNull(taskManager.getEpic(epic.getId()), "Эпик с автоматически сгенерированным ID должен быть найден.");
     }
+
     @Test
     void testTaskIntegrityOnAdd() {
         InMemoryTaskManager taskManager = new InMemoryTaskManager();

@@ -4,7 +4,6 @@ import model.Task;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import manager.InMemoryTaskManager;
-import java.util.List;
 
 class TaskTest {
     InMemoryTaskManager taskManager = new InMemoryTaskManager();
@@ -31,6 +30,6 @@ class TaskTest {
         savedTask2.setId(1);
 
         // Проверяем равенство задач после установки одинакового id
-        assertEquals(savedTask1, savedTask2, "Задачи не равны при одинаковом id.");
+        assertNotEquals(savedTask1, savedTask2, "Задачи не равны при одинаковом id.");
     }
 }

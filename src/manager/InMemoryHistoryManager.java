@@ -14,7 +14,7 @@ public class InMemoryHistoryManager implements HistoryManager {
             return;
         }
         if (history.size() == MAX_HISTORY_SIZE) {
-            history.remove(0); // Удаляем самый старый элемент
+            history.removeFirst(); // Удаляем самый старый элемент
         }
         history.add(task); // Добавляем задачу в конец списка
     }
@@ -23,6 +23,4 @@ public class InMemoryHistoryManager implements HistoryManager {
     public List<Task> getHistory() {
         return history;
     }
-
 }
-
