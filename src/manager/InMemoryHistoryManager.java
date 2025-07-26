@@ -14,8 +14,19 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (task == null) {
             return;
         }
-        Node node = new Node(task.getId(), task); // Создаем новый узел для задачи
-        addNodeToTail(node); // Добавляем новый узел в хвост списка
+        int taskId = task.getId();
+        Node currentNode = map.get(taskId);
+
+        // Если задача уже есть в истории и её состояние изменилось, добавляем новую версию
+        if (currentNode != null && !currentNode.task.equals(task)) {
+            Node node = new Node(taskId, task);
+            linkLast(task);
+            map.put(taskId, node);
+        } else if (currentNode == null) { // Если задачи ещё нет в истории
+            Node node = new Node(taskId, task);
+            linkLast(task);
+            map.put(taskId, node);
+        }
     }
 
 
@@ -31,32 +42,6 @@ public class InMemoryHistoryManager implements HistoryManager {
             tail = node.prev; // Если удаляемый узел — хвост списка
         }
     }
-
-    private void addNodeToTail(Node node) {
-        if (tail != null) {
-            tail.next = node;
-            node.prev = tail;
-        } else {
-            head = node; // Если список был пуст
-        }
-        tail = node;
-    }
-
-    private void removeOldest() {
-        Node nodeToRemove = head;
-        if (head != null) {
-            if (head.next != null) {
-                head = head.next;
-                head.prev = null;
-            } else {
-                // Если в списке только один элемент, устанавливаем head и tail в null
-                head = null;
-                tail = null;
-            }
-            map.remove(nodeToRemove.taskId); // Удаляем соответствующий элемент из HashMap
-        }
-    }
-
 
     @Override
     public void removeHistory(int id) {
@@ -88,15 +73,4 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
         tail = node;
     }
-
-    public List<Task> getTasks() {
-        List<Task> tasks = new ArrayList<>();
-        Node current = head;
-        while (current != null) {
-            tasks.add(current.task);
-            current = current.next;
-        }
-        return tasks;
-    }
-
 }

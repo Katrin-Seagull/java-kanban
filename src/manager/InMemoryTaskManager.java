@@ -72,12 +72,8 @@ public class InMemoryTaskManager implements TaskManager {
         return task;
     }
 
-    public SubTask getSubTask(Integer id) {
-        SubTask subTask = subTaskMap.get(id);
-        if (subTask == null) {
-            // Обработайте случай, когда подзадача не найдена
-            return null;
-        }
+    public SubTask getSubTask(Integer ID) {
+        SubTask subTask = subTaskMap.get(ID);
         historyManager.addHistory(subTask);
         return subTask;
     }
