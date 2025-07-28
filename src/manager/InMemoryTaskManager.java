@@ -4,7 +4,6 @@ import model.Epic;
 import model.SubTask;
 import model.Task;
 import model.Status;
-import manager.Managers;
 
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -86,6 +85,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     public void removeTask(Integer id) {
         taskMap.remove(id);
+        historyManager.removeHistory(id); // Добавляем вызов метода для удаления из истории
     }
 
     public void removeSubTask(Integer id) {
@@ -94,15 +94,19 @@ public class InMemoryTaskManager implements TaskManager {
         epic.getIdSubs().remove((Integer) subTask.getId()); // Удаляем идентификатор подзадачи из списка эпика
         Status newStatus = calculateEpicStatus(epic); // Рассчитываем новый статус эпика
         epic.setStatus(newStatus); // Устанавливаем новый статус
+        historyManager.removeHistory(id); // Добавляем вызов метода для удаления из истории
     }
 
     public void removeEpic(Integer id) {
         Epic epic = epicMap.get(id);
         for (SubTask subTask : getSubTasks()) {
             subTaskMap.remove(subTask.getId());
+            historyManager.removeHistory(subTask.getId()); // Добавляем вызов метода для каждой подзадачи
         }
         epicMap.remove(id);
+        historyManager.removeHistory(id); // Добавляем вызов метода для эпика
     }
+
 
     private int getNewId() {
         return id++;
