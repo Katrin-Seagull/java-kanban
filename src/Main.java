@@ -21,12 +21,12 @@ public class Main {
 
         SubTask subTask1 = new SubTask("Подзадача 1 для эпика 1", "Раскопать ямку", 2);
         tm.addSubTask(subTask1);
-        SubTask subTask2 = new SubTask("Подзадача 2 для эпика 1","Разместить саженец",2);
+        SubTask subTask2 = new SubTask("Подзадача 2 для эпика 1", "Разместить саженец", 2);
         tm.addSubTask(subTask2);
 
-        Epic epic2 = new Epic("Эпик 2","Построить дом");
+        Epic epic2 = new Epic("Эпик 2", "Построить дом");
         tm.addEpic(epic2);
-        SubTask subTask3 = new SubTask("Подзадача для эпика 2","Поставить купленный дом на участок", 6);
+        SubTask subTask3 = new SubTask("Подзадача для эпика 2", "Поставить купленный дом на участок", 6);
         tm.addSubTask(subTask3);
 
         System.out.println("Задачи: " + tm.getTasks());
@@ -49,7 +49,8 @@ public class Main {
 
         System.out.println("Задачи:");
         for (Task task : manager.getTasks()) {
-            System.out.println(task); }
+            System.out.println(task);
+        }
         System.out.println("Эпики:");
         for (Epic epic : manager.getEpics()) {
             System.out.println(epic);
