@@ -19,13 +19,12 @@ public class InMemoryHistoryManager implements HistoryManager {
 
         // Если задача уже есть в истории и её состояние изменилось, добавляем новую версию
         if (currentNode != null && !currentNode.task.equals(task)) {
+            removeHistory(taskId); // Удаляем предыдущую версию задачи
             Node node = new Node(taskId, task);
-            linkLast(task);
-            map.put(taskId, node);
+            linkLast(node); // Добавляем новую версию задачи
         } else if (currentNode == null) { // Если задачи ещё нет в истории
             Node node = new Node(taskId, task);
-            linkLast(task);
-            map.put(taskId, node);
+            linkLast(node);
         }
     }
 
@@ -62,8 +61,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         return history;
     }
 
-    private void linkLast(Task task) {
-        Node node = new Node(task.getId(), task);
+    private void linkLast(Node node) {
         if (tail != null) {
             tail.next = node;
             node.prev = tail;
@@ -71,5 +69,6 @@ public class InMemoryHistoryManager implements HistoryManager {
             head = node; // Если список был пуст
         }
         tail = node;
+        map.put(node.taskId, node);
     }
 }
