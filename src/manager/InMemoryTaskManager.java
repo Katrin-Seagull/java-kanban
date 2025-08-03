@@ -4,7 +4,7 @@ import model.Epic;
 import model.SubTask;
 import model.Task;
 import model.Status;
-import manager.Managers;
+
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,43 +65,48 @@ public class InMemoryTaskManager implements TaskManager {
         return new ArrayList<>(epicMap.values());
     }
 
-    public Task getTask(Integer ID) {
-        Task task = taskMap.get(ID);
+    public Task getTask(Integer id) {
+        Task task = taskMap.get(id);
         historyManager.addHistory(task);
         return task;
     }
 
-    public SubTask getSubTask(Integer ID) {
-        SubTask subTask = subTaskMap.get(ID);
+    public SubTask getSubTask(Integer id) {
+        SubTask subTask = subTaskMap.get(id);
         historyManager.addHistory(subTask);
         return subTask;
     }
 
-    public Epic getEpic(Integer ID) {
-        Epic epic = epicMap.get(ID);
+    public Epic getEpic(Integer id) {
+        Epic epic = epicMap.get(id);
         historyManager.addHistory(epic);
         return epic;
     }
 
-    public void removeTask(Integer ID) {
-        taskMap.remove(ID);
+    public void removeTask(Integer id) {
+        taskMap.remove(id);
+        historyManager.removeHistory(id); // Добавляем вызов метода для удаления из истории
     }
 
-    public void removeSubTask(Integer ID) {
-        SubTask subTask = subTaskMap.remove(ID);
+    public void removeSubTask(Integer id) {
+        SubTask subTask = subTaskMap.remove(id);
         Epic epic = getEpicForSubTask(subTask);
         epic.getIdSubs().remove((Integer) subTask.getId()); // Удаляем идентификатор подзадачи из списка эпика
         Status newStatus = calculateEpicStatus(epic); // Рассчитываем новый статус эпика
         epic.setStatus(newStatus); // Устанавливаем новый статус
+        historyManager.removeHistory(id); // Добавляем вызов метода для удаления из истории
     }
 
-    public void removeEpic(Integer ID) {
-        Epic epic = epicMap.get(ID);
+    public void removeEpic(Integer id) {
+        Epic epic = epicMap.get(id);
         for (SubTask subTask : getSubTasks()) {
             subTaskMap.remove(subTask.getId());
+            historyManager.removeHistory(subTask.getId()); // Добавляем вызов метода для каждой подзадачи
         }
-        epicMap.remove(ID);
+        epicMap.remove(id);
+        historyManager.removeHistory(id); // Добавляем вызов метода для эпика
     }
+
 
     private int getNewId() {
         return id++;
@@ -115,6 +120,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void updateSubTask(SubTask newSubTask) {
         Integer id = newSubTask.getId();
         subTaskMap.put(id, newSubTask);
+
         Epic epic = getEpicForSubTask(newSubTask);
         Status newStatus = calculateEpicStatus(epic);
         epic.setStatus(newStatus);
@@ -142,7 +148,7 @@ public class InMemoryTaskManager implements TaskManager {
                 newCount++;
             } else if (subTask.getStatus() == Status.DONE) {
                 doneCount++;
-            } else if (subTask.getStatus() == Status.IN_PROGRESS){
+            } else if (subTask.getStatus() == Status.IN_PROGRESS) {
                 return Status.IN_PROGRESS;
             }
         }

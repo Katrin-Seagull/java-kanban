@@ -12,9 +12,11 @@ public class Task {
         this.name = name;
         this.status = Status.NEW;
     }
+
     public Task copy() {
         return new Task(this.name, this.description);
     }
+
     public int getId() {
         return id;
     }
@@ -38,6 +40,7 @@ public class Task {
     public void setDescription(String description) {
         this.description = description;
     }
+
     public Status getStatus() {
         return status;
     }
