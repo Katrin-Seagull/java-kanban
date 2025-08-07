@@ -48,4 +48,34 @@ public class Task {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    public String toString() {
+        return String.format("%d,%s,%s,%s,%s,%d", id, name, status, description);
+    }
+
+
+    public static Task fromString(String line) {
+        String[] parts = line.split(",");
+        if (parts.length != 6) {
+            throw new IllegalArgumentException("Invalid task format");
+        }
+
+        TaskType type = TaskType.valueOf(parts[1]);
+        int id = Integer.parseInt(parts[0]);
+        String name = parts[2];
+        Status status = Status.valueOf(parts[3]);
+        String description = parts[4];
+        int epicId = Integer.parseInt(parts[5]);
+
+        switch (type) {
+            case TASK:
+                return new Task(name, description);
+            case EPIC:
+                return new Epic(name, description);
+            case SUBTASK:
+                return new SubTask(name, description, epicId);
+            default:
+                throw new IllegalArgumentException("Unknown task type");
+        }
+    }
 }
