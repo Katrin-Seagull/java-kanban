@@ -57,15 +57,11 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         FileBackedTaskManager manager = new FileBackedTaskManager(file.getPath()); // Передаем путь к файлу
 
         for (int i = 1; i < lines.size(); i++) { // Пропускаем первую строку с заголовками
-            Task task = Task.fromString(lines.get(i));
+            String line = lines.get(i);
+            Task task = Task.fromString(line);
             manager.addTask(task); // Предполагаем, что addTask умеет добавлять разные типы задач
         }
 
         return manager;
     }
-<<<<<<< HEAD
 }
-=======
-}
-
->>>>>>> 08b8d8aefa13c0c4e5be00f2274946ade039f3ba

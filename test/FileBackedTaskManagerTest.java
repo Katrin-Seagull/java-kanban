@@ -45,8 +45,4 @@ public class FileBackedTaskManagerTest {
         // Проверяем, что загруженный менеджер содержит те же задачи
         System.out.println("Test save/load multiple tasks: " + (loadedManager.getTasks().size() == 3 ? "passed" : "failed"));
     }
-<<<<<<< HEAD:src/test/FileBackedTaskManagerTest.java
 }
-=======
-}
->>>>>>> 08b8d8aefa13c0c4e5be00f2274946ade039f3ba:test/FileBackedTaskManagerTest.java
