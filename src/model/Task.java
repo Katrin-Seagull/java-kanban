@@ -1,7 +1,6 @@
 package model;
 
 public class Task {
-
     int id;
     private String name;
     private String description;
@@ -13,10 +12,7 @@ public class Task {
         this.status = Status.NEW;
     }
 
-    public Task copy() {
-        return new Task(this.name, this.description);
-    }
-
+    // Геттеры и сеттеры
     public int getId() {
         return id;
     }
@@ -47,5 +43,9 @@ public class Task {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public TaskType getType() {
+        return TaskType.TASK;
     }
 }

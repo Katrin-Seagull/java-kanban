@@ -7,6 +7,8 @@ public class Epic extends Task {
 
     public Epic(String name, String description) {
         super(name, description);
+        this.setId(id);
+        this.setStatus(Status.NEW); // Устанавливаем статус NEW по умолчанию
     }
 
     // Метод для добавления id подзадачи в список
@@ -29,8 +31,18 @@ public class Epic extends Task {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Epic)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Epic epic = (Epic) o;
-        return getId() == epic.getId();
+        return id == epic.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(id);
+    }
+
+    @Override
+    public TaskType getType() {
+        return TaskType.EPIC;
     }
 }
