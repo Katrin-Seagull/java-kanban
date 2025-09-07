@@ -1,7 +1,7 @@
 package test;
 
 import model.Epic;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -18,5 +18,4 @@ public class EpicTest {
         // Проверяем, что эпики равны по ID
         assertEquals(epic1, epic2);
     }
-
 }

@@ -1,7 +1,6 @@
 package model;
 
 public class Task {
-
     int id;
     private String name;
     private String description;
@@ -13,10 +12,7 @@ public class Task {
         this.status = Status.NEW;
     }
 
-    public Task copy() {
-        return new Task(this.name, this.description);
-    }
-
+    // Геттеры и сеттеры
     public int getId() {
         return id;
     }
@@ -49,39 +45,7 @@ public class Task {
         this.status = status;
     }
 
-    public String toString() {
-        return String.format("%d,%s,%s,%s,%s,%d", id, name, status, description);
-    }
-
-
-    public static Task fromString(String line) {
-        String[] parts = line.split(",");
-        if (parts.length != 6) {
-            throw new IllegalArgumentException("Invalid task format");
-        }
-
-        try {
-            TaskType type = TaskType.valueOf(parts[1]);
-            int id = Integer.parseInt(parts[0]);
-            String name = parts[2];
-            Status status = Status.valueOf(parts[3]);
-            String description = parts[4];
-            int epicId = Integer.parseInt(parts[5]);
-
-            switch (type) {
-                case TASK:
-                    return new Task(name, description);
-                case EPIC:
-                    return new Epic(name, description);
-                case SUBTASK:
-                    return new SubTask(name, description, epicId);
-                default:
-                    throw new IllegalArgumentException("Unknown task type");
-            }
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Error parsing task ID or epic ID: " + e.getMessage(), e);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Error parsing task: " + e.getMessage(), e);
-        }
+    public TaskType getType() {
+        return TaskType.TASK;
     }
 }

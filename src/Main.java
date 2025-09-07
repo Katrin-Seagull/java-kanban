@@ -12,21 +12,25 @@ public class Main {
         InMemoryHistoryManager historyManager = new InMemoryHistoryManager();
 
         Task task1 = new Task("Задача 1", "Полить цветы");
+        task1.setId(1); // Устанавливаем ID для задачи
+        task1.setStatus(Status.NEW); // Устанавливаем статус для задачи
         Task task2 = new Task("Задача 2", "Погулять с собакой");
+        task2.setId(2); // Устанавливаем ID для задачи
+        task2.setStatus(Status.NEW); // Устанавливаем статус для задачи
         tm.addTask(task1);
         tm.addTask(task2);
 
-        Epic epic1 = new Epic("Эпик 1", "Посадить дерево");
+        Epic epic1 = new Epic("Эпик 1", "Посадить дерево"); // Передаём ID, название, статус и описание
         tm.addEpic(epic1);
 
-        SubTask subTask1 = new SubTask("Подзадача 1 для эпика 1", "Раскопать ямку", 2);
+        SubTask subTask1 = new SubTask(4, "Подзадача 1 для эпика 1", "Раскопать ямку", epic1.getId()); // Передаём ID, название, статус, описание и ID эпика
         tm.addSubTask(subTask1);
-        SubTask subTask2 = new SubTask("Подзадача 2 для эпика 1", "Разместить саженец", 2);
+        SubTask subTask2 = new SubTask(5, "Подзадача 2 для эпика 1","Разместить саженец", epic1.getId()); // Передаём ID, название, статус, описание и ID эпика
         tm.addSubTask(subTask2);
 
-        Epic epic2 = new Epic("Эпик 2", "Построить дом");
+        Epic epic2 = new Epic("Эпик 2", "Построить дом"); // Передаём ID, название, статус и описание
         tm.addEpic(epic2);
-        SubTask subTask3 = new SubTask("Подзадача для эпика 2", "Поставить купленный дом на участок", 6);
+        SubTask subTask3 = new SubTask(7, "Подзадача для эпика 2","Поставить купленный дом на участок", epic2.getId()); // Передаём ID, название, статус, описание и ID эпика
         tm.addSubTask(subTask3);
 
         System.out.println("Задачи: " + tm.getTasks());
@@ -46,7 +50,6 @@ public class Main {
     }
 
     public static void printAllTasks(InMemoryTaskManager manager, InMemoryHistoryManager historyManager) {
-
         System.out.println("Задачи:");
         for (Task task : manager.getTasks()) {
             System.out.println(task);
