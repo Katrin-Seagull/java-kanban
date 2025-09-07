@@ -10,6 +10,7 @@ public class Epic extends Task {
         this.setId(id);
         this.setStatus(Status.NEW); // Устанавливаем статус NEW по умолчанию
     }
+
     // Метод для добавления id подзадачи в список
     public void addSubTaskId(int id) {
         idSubs.add(id);
@@ -39,6 +40,7 @@ public class Epic extends Task {
     public int hashCode() {
         return Integer.hashCode(id);
     }
+
     @Override
     public TaskType getType() {
         return TaskType.EPIC;

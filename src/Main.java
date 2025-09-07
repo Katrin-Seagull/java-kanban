@@ -23,14 +23,14 @@ public class Main {
         Epic epic1 = new Epic("Эпик 1", "Посадить дерево"); // Передаём ID, название, статус и описание
         tm.addEpic(epic1);
 
-        SubTask subTask1 = new SubTask(4, "Подзадача 1 для эпика 1", "Раскопать ямку", epic1.getId()); // Передаём ID, название, статус, описание и ID эпика
+        SubTask subTask1 = new SubTask("Подзадача 1 для эпика 1", "Раскопать ямку", epic1.getId()); // Передаём ID, название, статус, описание и ID эпика
         tm.addSubTask(subTask1);
-        SubTask subTask2 = new SubTask(5, "Подзадача 2 для эпика 1","Разместить саженец", epic1.getId()); // Передаём ID, название, статус, описание и ID эпика
+        SubTask subTask2 = new SubTask("Подзадача 2 для эпика 1", "Разместить саженец", epic1.getId()); // Передаём ID, название, статус, описание и ID эпика
         tm.addSubTask(subTask2);
 
         Epic epic2 = new Epic("Эпик 2", "Построить дом"); // Передаём ID, название, статус и описание
         tm.addEpic(epic2);
-        SubTask subTask3 = new SubTask(7, "Подзадача для эпика 2","Поставить купленный дом на участок", epic2.getId()); // Передаём ID, название, статус, описание и ID эпика
+        SubTask subTask3 = new SubTask("Подзадача для эпика 2", "Поставить купленный дом на участок", epic2.getId()); // Передаём ID, название, статус, описание и ID эпика
         tm.addSubTask(subTask3);
 
         System.out.println("Задачи: " + tm.getTasks());
